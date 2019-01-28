@@ -1,0 +1,15 @@
+<launch>
+
+<group ns="displaying">
+    
+    <node pkg="multiprocess_render" type="display_answer_barbados.py" name="display1" output="screen">
+      <param name="source" value="/render1/text1" />
+
+
+     
+
+    </node>
+
+  </group>
+
+</launch>

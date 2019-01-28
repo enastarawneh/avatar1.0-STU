@@ -1,0 +1,82 @@
+<launch>
+
+  <group ns="input">
+    
+    <node pkg="multiprocess_render" type="audio_source.py" name="input1">
+      <param name="sink" value="/recognizer/audio" />
+      <param name="source" value="/question/next" /> 
+      <param name="sink2" value="/display/avatar"/> 
+      <param name="sink3" value="/display/emotion"/>   
+
+    </node>
+
+  </group>
+
+
+  <group ns="recognize">
+    
+    <node pkg="multiprocess_render" type="recognize_audio_google.py" name="recognize1">
+      <param name="sink" value="/render1/text1" />
+      <param name="source" value="/recognizer/audio" />
+  
+ 
+
+    </node>
+
+  </group>
+
+ <group ns="answer">
+    
+    <node pkg="multiprocess_render" type="wolfram.py" name="answer1">
+      <param name="source" value="/render1/text1" />
+      <param name="sink" value="/answer1/text1" />
+  
+  
+
+    </node>
+
+  </group>
+
+
+<group ns="storing">
+    
+    <node pkg="multiprocess_render" type="file_store.py" name="store1">
+      <param name="source" value="/answer1/text1" />
+      <param name="sink" value="/render1/text2" />
+      
+   
+
+    </node>
+
+  </group>
+<group ns="reading">
+    
+    <node pkg="multiprocess_render" type="robot_answer.py" name="answer1">
+      <param name="source1" value="/render1/text2" />
+      <param name="source2" value="/render1/index" />
+      
+   
+
+    </node>
+
+  </group>
+<group ns="displaying">
+    
+    <node pkg="multiprocess_render" type="display_answer.py" name="display1" output="screen">
+      <param name="sink" value="/render1/index" />
+      <param name="source1" value="/render1/show1" />
+      <param name="source2" value="/render1/show2" />
+      <param name="source3" value="/render1/show3" />
+      <param name="source4" value="/render1/show4" />
+      <param name="source5" value="/render1/show5" />
+      <param name="source6" value="/render1/show6" />
+      <param name="source0" value="/turtle1/cmd_vel"/>
+      <param name="source7" value="/display/avatar"/>
+      <param name="source8" value="/display/emotion"/>
+      <param name="sink2" value="/question/next" />   
+
+    </node>
+
+  </group>
+
+</launch>

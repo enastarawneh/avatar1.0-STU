@@ -1,0 +1,62 @@
+<launch>
+
+  <group ns="input">
+    
+    <node pkg="multiprocess_render" type="audio_source.py" name="input1">
+      <param name="sink" value="/recognizer/audio" />
+      <param name="source" value="/question/next" /> 
+      <param name="sink2" value="/display/avatar"/> 
+      <param name="sink3" value="/display/emotion"/>   
+
+    </node>
+
+  </group>
+
+
+  <group ns="recognize">
+    
+    <node pkg="multiprocess_render" type="recognize_audio_google.py" name="recognize1">
+      <param name="sink" value="/render1/text1" />
+      <param name="source" value="/recognizer/audio" />
+  
+ 
+
+    </node>
+
+  </group>
+
+ <group ns="answer">
+    
+    <node pkg="multiprocess_render" type="wolfram.py" name="answer1">
+      <param name="source" value="/render1/text1" />
+      <param name="sink" value="/answer1/text1" />
+  
+  
+
+    </node>
+
+
+  </group>
+<group ns="reading">
+    
+    <node pkg="multiprocess_render" type="robot_answer_cartoon.py" name="answer1">
+      <param name="source1" value="/answer1/text1" />
+      <param name="sink" value="/answer1/duration" />
+
+
+    </node>
+
+
+  </group>
+<group ns="displaying">
+    
+    <node pkg="multiprocess_render" type="display_avatar.py" name="display1" >
+      <param name="source" value="/answer1/duration" />
+      <param name="source1" value="/render1/text1" />
+      <param name="sink" value="/question/next" />   
+
+    </node>
+
+  </group>
+
+</launch>
